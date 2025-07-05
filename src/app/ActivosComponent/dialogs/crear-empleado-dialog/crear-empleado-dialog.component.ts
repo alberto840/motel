@@ -11,6 +11,7 @@ import { EmployeeInterface } from '../../servicios/data/employeeData';
   encapsulation: ViewEncapsulation.None
 })
 export class CrearEmpleadoDialogComponent {
+  rol = localStorage.getItem('rolId')||'';
   employeeForm: FormGroup;
 
   constructor(

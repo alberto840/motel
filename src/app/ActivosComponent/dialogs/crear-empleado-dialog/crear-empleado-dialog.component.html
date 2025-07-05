@@ -1,5 +1,5 @@
 <mat-dialog-content>
-  <div class="popup-body">
+  <div *ngIf="this.rol != '1'; else noAccess" class="popup-body">
     <div class="inventual-popup-inner">
       <div class="inventual-popup-header relative mb-5">
         <div class="inventual-popup-header-title">
@@ -75,45 +75,51 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <!-- Estado -->
           <div class="inventual-select-field">
-            <h5 class="text-[15px] text-heading font-semibold mb-2">Estado*</h5>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-select formControlName="estado">
-                <mat-option [value]="true">Activo</mat-option>
-                <mat-option [value]="false">Inactivo</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <h5 class="text-[15px] text-heading font-semibold mb-3">Estado*</h5>
+            <div class="inventual-select-field-style">
+              <mat-form-field>
+                <mat-select formControlName="estado" placeholder="Seleccionar Estado">
+                  <mat-option [value]="true">Activo</mat-option>
+                  <mat-option [value]="false">Inactivo</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
           </div>
 
           <!-- Rol -->
           <div class="inventual-select-field">
-            <h5 class="text-[15px] text-heading font-semibold mb-2">Rol*</h5>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-select formControlName="rol_id" required>
-                <mat-option [value]="1">Administrador</mat-option>
-                <mat-option [value]="2">Recepcionista</mat-option>
-                <mat-option [value]="3">Limpieza</mat-option>
-                <mat-option [value]="4">Mantenimiento</mat-option>
-                <mat-option [value]="5">Seguridad</mat-option>
-              </mat-select>
-              <mat-error *ngIf="employeeForm.get('rol_id')?.hasError('required')">
-                Rol es requerido
-              </mat-error>
-            </mat-form-field>
+            <h5 class="text-[15px] text-heading font-semibold mb-3">Rol*</h5>
+            <div class="inventual-select-field-style">
+              <mat-form-field>
+                <mat-select formControlName="rol_id" placeholder="Seleccionar Rol" required>
+                  <mat-option [value]="1">Administrador</mat-option>
+                  <mat-option [value]="2">Recepcionista</mat-option>
+                  <mat-option [value]="3">Limpieza</mat-option>
+                  <mat-option [value]="4">Mantenimiento</mat-option>
+                  <mat-option [value]="5">Seguridad</mat-option>
+                </mat-select>
+                <mat-error *ngIf="employeeForm.get('rol_id')?.hasError('required')">
+                  Rol es requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
 
           <!-- Sucursal -->
           <div class="inventual-select-field">
-            <h5 class="text-[15px] text-heading font-semibold mb-2">Sucursal*</h5>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-select formControlName="sucursales_id" required>
-                <mat-option [value]="1">Sucursal Central</mat-option>
-                <mat-option [value]="2">Sucursal Norte</mat-option>
-                <mat-option [value]="3">Sucursal Sur</mat-option>
-              </mat-select>
-              <mat-error *ngIf="employeeForm.get('sucursales_id')?.hasError('required')">
-                Sucursal es requerida
-              </mat-error>
-            </mat-form-field>
+            <h5 class="text-[15px] text-heading font-semibold mb-3">Sucursal*</h5>
+            <div class="inventual-select-field-style">
+              <mat-form-field>
+                <mat-select formControlName="sucursales_id" placeholder="Seleccionar Sucursal" required>
+                  <mat-option [value]="1">Sucursal Central</mat-option>
+                  <mat-option [value]="2">Sucursal Norte</mat-option>
+                  <mat-option [value]="3">Sucursal Sur</mat-option>
+                </mat-select>
+                <mat-error *ngIf="employeeForm.get('sucursales_id')?.hasError('required')">
+                  Sucursal es requerida
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
         </div>
 
@@ -130,4 +136,11 @@
       </form>
     </div>
   </div>
+
+  <ng-template #noAccess>
+    <div class="p-8 text-center">
+      <h4 class="text-[20px] text-red-500 font-bold">Acceso denegado</h4>
+      <p class="mt-2">Solo los administradores pueden acceder a esta función</p>
+    </div>
+  </ng-template>
 </mat-dialog-content>
