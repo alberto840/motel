@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { roleData, RoleInterface } from '../../servicios/data/transactionData';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,6 +8,8 @@ import { MatDatepickerInput, MatDatepickerInputEvent } from '@angular/material/d
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import * as Papa from 'papaparse'
+import { transaccionData, TransaccionInterface } from '../../servicios/data/transactionData';
+import { AccessDIalogsService } from '../../servicios/access/access-dialogs.service';
 
 //import * as Papa from 'papaparse';
 
@@ -33,17 +34,17 @@ export class GestionTransaccionesComponent implements OnInit {
     'estado',
     'accion',
   ];
-  dataSource: MatTableDataSource<RoleInterface>;
-  selection = new SelectionModel<RoleInterface>(true, []);
+  dataSource: MatTableDataSource<TransaccionInterface>;
+  selection = new SelectionModel<TransaccionInterface>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialogsService: AccessDIalogsService) {
     // Asignamos los datos de roles a la fuente de datos
-    this.dataSource = new MatTableDataSource(roleData);
+    this.dataSource = new MatTableDataSource(transaccionData);
   }
 
   ngAfterViewInit() {
@@ -75,7 +76,7 @@ export class GestionTransaccionesComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: RoleInterface): string {
+  checkboxLabel(row?: TransaccionInterface): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -94,7 +95,7 @@ export class GestionTransaccionesComponent implements OnInit {
     console.log('Agregar nuevo rol');
   }
 modalEditVisible = false;
-  editType(role: RoleInterface) {
+  editType(role: TransaccionInterface) {
     this.modalEditVisible = true;
     console.log('Editar rol:', role);
   }
@@ -103,7 +104,7 @@ modalEditVisible = false;
     
   }
 
-  duplicateRole(role: RoleInterface) {
+  duplicateRole(role: TransaccionInterface) {
     // Lógica para duplicar un rol
     console.log('Duplicar rol:', role);
   }
@@ -112,7 +113,7 @@ modalEditVisible = false;
 showDeleteConfirm=false;
 deleteResult: boolean | null = null;
 tipoSeleccionado: any = null;
-  deleteType(role: RoleInterface) {
+  deleteType(role: TransaccionInterface) {
 this.showDeleteConfirm=true;
     console.log('Eliminar rol:', role);
   }
@@ -136,7 +137,7 @@ this.showDeleteConfirm=true;
   }, 500);
 }
 
-  toggleRoleStatus(role: RoleInterface) {
+  toggleRoleStatus(role: TransaccionInterface) {
     // Lógica para cambiar el estado de un rol
     role.estado = !role.estado;
     console.log('Cambiar estado del rol:', role);
@@ -155,23 +156,13 @@ newTransaction = {
   estado: ''
 };
 
-openModal() {
-  this.modalVisible = true;
-}
 
-closeModal() {
-  this.modalVisible = false;
-}
+editTransaccion(transaccion: TransaccionInterface) {
+this.dialogsService.editarTransaccion(transaccion)}
+deleteTransaccion(transaccion: TransaccionInterface) {
+    this.dialogsService.eliminarElemento(transaccion.id, 'Transaccion');
+  }
 
-saveRoom() {
-  console.log('Nuevo tipo de cuarto:', this.newTransaction);
-  this.closeModal();
-}
-
-saveType() {
-  console.log('Nuevo tipo de cuarto:', this.newTransaction);
-  this.closeEditType();
-}
 
 fechaSeleccionada: Date | null = null;
 dataOriginal: any[] = []; // Contendrá todas las transacciones

@@ -28,7 +28,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { NgApexchartsModule } from "ng-apexcharts";
-import { ActivosLoginComponent } from "./activos-login/activos-login.component";
 import { RecuperarPasswordComponent } from './recuperar-password/recuperar-password.component';
 import { SideMenuComponent } from './comunes/side-menu/side-menu.component';
 import { CabeceraComponent } from './comunes/cabecera/cabecera.component';
@@ -69,6 +68,18 @@ import { CrearSucursalDialogComponent } from './dialogs/crear-sucursal-dialog/cr
 import { EditarSucursalDialogComponent } from './dialogs/editar-sucursal-dialog/editar-sucursal-dialog.component';
 import { CrearReservaDialogComponent } from './dialogs/crear-reserva-dialog/crear-reserva-dialog.component';
 import { EditarReservaDialogComponent } from './dialogs/editar-reserva-dialog/editar-reserva-dialog.component';
+import { CrearOcuparcuartoDialogComponent } from './dialogs/crear-ocuparcuarto-dialog/crear-ocuparcuarto-dialog.component';
+import { CrearLimpiezaDialogComponent } from './dialogs/crear-limpieza-dialog/crear-limpieza-dialog.component';
+import { CrearMantenimientoDialogComponent } from './dialogs/crear-mantenimiento-dialog/crear-mantenimiento-dialog.component';
+import { CrearCheckoutDialogComponent } from './dialogs/crear-checkout-dialog/crear-checkout-dialog.component';
+import { CrearHabilitarDialogComponent } from './dialogs/crear-habilitar-dialog/crear-habilitar-dialog.component';
+import { AgregarProductoCuartoDialogComponent } from './dialogs/agregar-producto-cuarto-dialog/agregar-producto-cuarto-dialog.component';
+import { LoginComponent } from './comunes/login/login.component';
+import { CrearTipoCuartoDialogComponent } from './dialogs/crear-tipo-cuarto-dialog/crear-tipo-cuarto-dialog.component';
+import { EditarTipoCuartoDialogComponent } from './dialogs/editar-tipo-cuarto-dialog/editar-tipo-cuarto-dialog.component';
+import { CrearCuartoDialogComponent } from './dialogs/crear-cuarto-dialog/crear-cuarto-dialog.component';
+import { EditarCuartoDialogComponent } from './dialogs/editar-cuarto-dialog/editar-cuarto-dialog.component';
+import { EditarTransaccionDialogComponent } from './dialogs/editar-transaccion-dialog/editar-transaccion-dialog.component';
 
 @NgModule({
   imports: [
@@ -113,7 +124,6 @@ import { EditarReservaDialogComponent } from './dialogs/editar-reserva-dialog/ed
     QRCodeModule
   ],
   declarations: [
-    ActivosLoginComponent,
     RecuperarPasswordComponent,
     SideMenuComponent,
     CabeceraComponent,
@@ -148,6 +158,18 @@ import { EditarReservaDialogComponent } from './dialogs/editar-reserva-dialog/ed
     EditarSucursalDialogComponent,
     CrearReservaDialogComponent,
     EditarReservaDialogComponent,
+    CrearOcuparcuartoDialogComponent,
+    CrearLimpiezaDialogComponent,
+    CrearMantenimientoDialogComponent,
+    CrearCheckoutDialogComponent,
+    CrearHabilitarDialogComponent,
+    AgregarProductoCuartoDialogComponent,
+    LoginComponent,
+    CrearTipoCuartoDialogComponent,
+    EditarTipoCuartoDialogComponent,
+    CrearCuartoDialogComponent,
+    EditarCuartoDialogComponent,
+    EditarTransaccionDialogComponent,
   ],
 })
 export class ActivosProyectModule {}

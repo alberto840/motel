@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { roleData, RoleInterface } from '../../servicios/data/roomTypeData';
+import { roomTypeData, RoomTypeInterface } from '../../servicios/data/roomTypeData';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-
+import { AccessDIalogsService } from '../../servicios/access/access-dialogs.service';
+import { roomData } from '../../servicios/data/roomData2';
 
 @Component({
   selector: 'app-gestion-tipo-cuartos',
@@ -24,17 +25,17 @@ export class GestionTipoCuartosComponent implements OnInit {
     'creado_en',
     'accion',
   ];
-  dataSource: MatTableDataSource<RoleInterface>;
-  selection = new SelectionModel<RoleInterface>(true, []);
+  dataSource: MatTableDataSource<RoomTypeInterface>;
+  selection = new SelectionModel<RoomTypeInterface>(true, []);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
 
-  constructor(public dialog: MatDialog) {
+    constructor(public dialogsService: AccessDIalogsService) {
     // Asignamos los datos de roles a la fuente de datos
-    this.dataSource = new MatTableDataSource(roleData);
+    this.dataSource = new MatTableDataSource(roomTypeData);
   }
 
   ngAfterViewInit() {
@@ -66,7 +67,7 @@ export class GestionTipoCuartosComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: RoleInterface): string {
+  checkboxLabel(row?: RoomTypeInterface): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -80,54 +81,14 @@ export class GestionTipoCuartosComponent implements OnInit {
   }
   //sidebar menu activation end
 
-  addRole() {
-    // Lógica para agregar un nuevo rol
-    console.log('Agregar nuevo rol');
-  }
-modalEditVisible = false;
-  editType(role: RoleInterface) {
-    this.modalEditVisible = true;
-    console.log('Editar rol:', role);
-  }
-   closeEditType() {
-    this.modalEditVisible = false;
-    
-  }
+ 
 
-  duplicateRole(role: RoleInterface) {
-    // Lógica para duplicar un rol
-    console.log('Duplicar rol:', role);
-  }
 
-  //eliminacion de tipo cuarto
-showDeleteConfirm=false;
-deleteResult: boolean | null = null;
-tipoSeleccionado: any = null;
-  deleteType(role: RoleInterface) {
-this.showDeleteConfirm=true;
-    console.log('Eliminar rol:', role);
-  }
 
-  confirmDelete() {
-  this.showDeleteConfirm = false;
 
-  // Simula eliminación
-  setTimeout(() => {
-    const success = true; // Aquí va la lógica real
-    this.deleteResult = success;
+ 
 
-    if (success) {
-      // Elimina de la fuente de datos si se usa un array
-      const index = this.dataSource.data.indexOf(this.tipoSeleccionado);
-      if (index !== -1) {
-        this.dataSource.data.splice(index, 1);
-        this.dataSource._updateChangeSubscription(); // actualiza la tabla
-      }
-    }
-  }, 500);
-}
-
-  toggleRoleStatus(role: RoleInterface) {
+  toggleRoleStatus(role: RoomTypeInterface) {
     // Lógica para cambiar el estado de un rol
     role.estado = !role.estado;
     console.log('Cambiar estado del rol:', role);
@@ -140,22 +101,13 @@ newRoom = {
   descripcion: ''
 };
 
-openModal() {
-  this.modalVisible = true;
-}
+addTipoCuarto() {
+this.dialogsService.crearTipoCuarto()}
+editTipoCuarto(cuarto: RoomTypeInterface) {
+this.dialogsService.editarTipoCuarto(cuarto)}
 
-closeModal() {
-  this.modalVisible = false;
-}
-
-saveRoom() {
-  console.log('Nuevo tipo de cuarto:', this.newRoom);
-  this.closeModal();
-}
-
-saveType() {
-  console.log('Nuevo tipo de cuarto:', this.newRoom);
-  this.closeEditType();
-}
+ deleteTipoCuarto(cuarto: RoomTypeInterface) {
+    this.dialogsService.eliminarElemento(cuarto.id, 'TipoCuarto');
+  }
   ngOnInit(): void {}
 }

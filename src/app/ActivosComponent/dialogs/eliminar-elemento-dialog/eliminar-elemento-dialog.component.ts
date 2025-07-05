@@ -42,6 +42,15 @@ export class EliminarElementoDialogComponent {
         break;
       default:
         break;
+      case 'TipoCuarto':
+        this.eliminarTipoCuarto(id);
+        break;
+       case 'Cuarto':
+        this.eliminarCuarto(id);
+        break;
+        case 'Transaccion':
+        this.eliminarCuarto(id);
+        break;
     }
     this.cerrarDialog();
   }
@@ -78,5 +87,17 @@ export class EliminarElementoDialogComponent {
   eliminarReserva(id: number) {
     this.cerrarDialog();
     this.dialogsService.confirmarAccion(true, 'Reserva', 'eliminada correctamente', id);
+  }
+  eliminarTipoCuarto(id: number) {
+    this.cerrarDialog();
+    this.dialogsService.confirmarAccion(true, 'Tipo de Cuarto', 'eliminado correctamente', id);
+  }
+  eliminarCuarto(id: number) {
+    this.cerrarDialog();
+    this.dialogsService.confirmarAccion(true, 'Cuarto', 'eliminado correctamente', id);
+  }
+   eliminarTransaccion(id: number) {
+    this.cerrarDialog();
+    this.dialogsService.confirmarAccion(true, 'transaccion', 'eliminada correctamente', id);
   }
 }

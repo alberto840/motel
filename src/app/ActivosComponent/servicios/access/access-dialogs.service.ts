@@ -17,6 +17,21 @@ import {Branch} from "../data/branchData";
 import {CrearReservaDialogComponent} from "../../dialogs/crear-reserva-dialog/crear-reserva-dialog.component";
 import {EditarReservaDialogComponent} from "../../dialogs/editar-reserva-dialog/editar-reserva-dialog.component";
 import {ReservaInterface} from "../data/reservaData";
+import { CuartoInterface } from '../data/roomData';
+import { TransaccionInterface } from '../data/transactionData';
+import { CrearLimpiezaDialogComponent } from '../../dialogs/crear-limpieza-dialog/crear-limpieza-dialog.component';
+import { CrearCheckoutDialogComponent } from '../../dialogs/crear-checkout-dialog/crear-checkout-dialog.component';
+import { CrearOcuparcuartoDialogComponent } from '../../dialogs/crear-ocuparcuarto-dialog/crear-ocuparcuarto-dialog.component';
+import { AgregarProductoCuartoDialogComponent } from '../../dialogs/agregar-producto-cuarto-dialog/agregar-producto-cuarto-dialog.component';
+import { CrearHabilitarDialogComponent } from '../../dialogs/crear-habilitar-dialog/crear-habilitar-dialog.component';
+import { CrearMantenimientoDialogComponent } from '../../dialogs/crear-mantenimiento-dialog/crear-mantenimiento-dialog.component';
+import { CrearTipoCuartoDialogComponent } from '../../dialogs/crear-tipo-cuarto-dialog/crear-tipo-cuarto-dialog.component';
+import { EditarTipoCuartoDialogComponent } from '../../dialogs/editar-tipo-cuarto-dialog/editar-tipo-cuarto-dialog.component';
+import { RoomTypeInterface } from '../data/roomTypeData';
+import { CrearCuartoDialogComponent } from '../../dialogs/crear-cuarto-dialog/crear-cuarto-dialog.component';
+import { RoomInterface } from '../data/roomData2';
+import { EditarCuartoDialogComponent } from '../../dialogs/editar-cuarto-dialog/editar-cuarto-dialog.component';
+import { EditarTransaccionDialogComponent } from '../../dialogs/editar-transaccion-dialog/editar-transaccion-dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -114,4 +129,87 @@ export class AccessDIalogsService {
       data: reserva
     });
   }
+
+  // Acceso a dialogos de dashboard
+  enviarLimpieza(cuarto: CuartoInterface): void {
+    this.dialog.open(CrearLimpiezaDialogComponent, {
+      data: {
+        error: false,
+        mensaje: '¿Está seguro de que desea enviar a limpieza el cuarto ' + cuarto.nombre + '?',
+        tipo: 'limpieza',
+        idAux: cuarto.id
+      },
+    });
+  }
+  checkoutCuarto(cuarto: CuartoInterface): void {
+    this.dialog.open(CrearCheckoutDialogComponent, {
+      data: {
+        cuarto,
+      },
+    });
+  }
+  ocuparCuarto(cuarto: CuartoInterface): void {
+    this.dialog.open(CrearOcuparcuartoDialogComponent, {
+      data: {
+        cuarto,
+      },
+    });
+  }
+  agregarProductoTransaccion(): void {
+    this.dialog.open(AgregarProductoCuartoDialogComponent, {
+      width: '700px',
+      data: {
+      }
+    });
+  }
+  habilitarCuarto(cuarto: CuartoInterface): void {
+    this.dialog.open(CrearHabilitarDialogComponent, {
+      data: {
+        error: false,
+        mensaje: '¿Está seguro de que desea habilitar el cuarto ' + cuarto.nombre + '?',
+        tipo: 'limpieza',
+        idAux: cuarto.id
+      },
+    });
+  }
+  enviarMantenimiento(cuarto: CuartoInterface): void {
+    this.dialog.open(CrearMantenimientoDialogComponent, {
+      data: {
+        error: false,
+        mensaje: '¿Está seguro de que desea enviar a mantenimiento el cuarto ' + cuarto.nombre + '?',
+        tipo: 'limpieza',
+        idAux: cuarto.id
+      },
+    });
+  }
+  // acceso a dialogs de tipo de cuarto
+   crearTipoCuarto(): void {
+    this.dialog.open(CrearTipoCuartoDialogComponent, {
+    });
+  }
+  editarTipoCuarto (tipoCuarto: RoomTypeInterface): void {
+    this.dialog.open(EditarTipoCuartoDialogComponent, {
+      width: '700px',
+      data: tipoCuarto
+    });
+  }
+  //acceso a dialogs de cuarto
+     crearCuarto(): void {
+    this.dialog.open(CrearCuartoDialogComponent, {
+    });
+  }
+   editarCuarto (cuarto: RoomInterface): void {
+    this.dialog.open(EditarCuartoDialogComponent, {
+      width: '700px',
+      data: cuarto
+    });
+  }
+//acceso a dialogs transaccion
+ editarTransaccion (transaccion: TransaccionInterface): void {
+    this.dialog.open(EditarTransaccionDialogComponent, {
+      width: '700px',
+      data: transaccion
+    });
+  }
+
 }
